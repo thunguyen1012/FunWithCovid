@@ -3,7 +3,7 @@ import { Space } from 'antd';
 import { useQuery } from '@apollo/react-hooks';
 
 const Visualization = ({ visualizationOption, selectingCountries }) => {
-  const { Component, query, config } = visualizationOption;
+  const { Component, query, config, parseData } = visualizationOption;
 
   const { loading, data } = useQuery(query, {
     variables: { selectingCountries },
@@ -16,7 +16,7 @@ const Visualization = ({ visualizationOption, selectingCountries }) => {
         width={1400}
         height={700}
         margin={{ top: 20, right: 30, left: 20, bottom: 5 }}
-        data={data.countries}
+        data={parseData(data)}
         config={config}
       />
     </Space>

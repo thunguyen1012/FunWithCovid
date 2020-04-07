@@ -25,8 +25,8 @@ export const GET_COUNTRIES = gql`
 `;
 
 export const GET_HISTORICAL = gql`
-  query {
-    historical {
+  query Historical($selectingCountries: [String]) {
+    historical(selectingCountries: $selectingCountries) {
       country
       timeline {
         cases {

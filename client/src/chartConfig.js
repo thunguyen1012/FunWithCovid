@@ -1,3 +1,5 @@
+import { format } from 'date-fns';
+
 import StackedAreaChart from './components/StackedAreaChart';
 import StackedBarChart from './components/StackedBarChart';
 
@@ -41,6 +43,52 @@ export const VisualizationOptions = {
         dataKey: 'country',
       },
     },
+    parseData: ({ countries }) => countries,
   },
-  historical: {},
+  historical: {
+    Component: StackedAreaChart,
+    query: GET_HISTORICAL,
+    config: {
+      areas: [
+        {
+          type: 'monotone',
+          dataKey: 'cases',
+          stackId: 'a',
+          stroke: COLORS[1],
+          fill: COLORS[1],
+        },
+        {
+          type: 'monotone',
+          dataKey: 'deaths',
+          stackId: 'a',
+          stroke: COLORS[2],
+          fill: COLORS[2],
+        },
+        {
+          type: 'monotone',
+          dataKey: 'recovered',
+          stackId: 'a',
+          stroke: COLORS[4],
+          fill: COLORS[4],
+        },
+      ],
+      xAxis: {
+        dataKey: 'date',
+      },
+    },
+    parseData: (data) => {
+      const { cases, deaths, recovered } = data.historical[0].timeline;
+      const length = cases.length;
+      const parsedData = [];
+      for (let i = 0; i < length; i++) {
+        parsedData.push({
+          date: format(new Date(cases[i].date), 'yyyy-MM-dd'),
+          cases: cases[i].value,
+          deaths: deaths[i].value,
+          recovered: recovered[i].value,
+        });
+      }
+      return parsedData;
+    },
+  },
 };
