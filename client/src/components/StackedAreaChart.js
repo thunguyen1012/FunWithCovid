@@ -10,9 +10,12 @@ import {
   Legend,
 } from 'recharts';
 
-import AreaTooltip from "./CustomTooltip";
+import AreaTooltip from './CustomTooltip';
+import CustomLegend from './CustomLegend';
 
 const StackedAreaChart = ({ width, height, margin, data, config }) => {
+  const { seriesName } = data[0];
+
   const Areas = config.areas.map((i) => (
     <Area
       key={i.dataKey}
@@ -30,7 +33,7 @@ const StackedAreaChart = ({ width, height, margin, data, config }) => {
       <XAxis dataKey={config.xAxis.dataKey} />
       <YAxis />
       <Tooltip content={<AreaTooltip />} />
-      <Legend />
+      <Legend content={<CustomLegend seriesName={seriesName} />} />
       {Areas}
     </AreaChart>
   );

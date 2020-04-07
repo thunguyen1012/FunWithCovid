@@ -8,7 +8,7 @@ class CustomTooltip extends Tooltip {
       const seriesName = payload[0].payload.seriesName;
       const labelContent = seriesName ? `${seriesName} (${label})` : label;
       const Items = payload.map(({ color, name, value }) => (
-        <p style={{ color: color, padding: 0, margin: 0 }}>
+        <p key={name} style={{ color: color, padding: 0, margin: 0 }}>
           {name} : {value}
         </p>
       ));
