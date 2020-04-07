@@ -1,30 +1,65 @@
 import React from 'react';
 import gql from 'graphql-tag';
 
-const GET_COUNTRIES = gql`
-  query countries($selectingCountries: [String]) {
-    countries(selectingCountries: ["USA"]) {
+const GET_COUNTRY_NAMES = gql`
+  query {
+    countries {
       country
-      cases
     }
   }
 `;
 
-const Index = ({ data, loading, error }) => {
+const GET_COUNTRIES = gql`
+  query {
+    countries {
+      country
+      cases
+      todayCases
+      deaths
+      todayDeaths
+      recovered
+      active
+      critical
+      tests
+    }
+  }
+`;
+
+const GET_HISTORICAL = gql`
+  query {
+    historical {
+      country
+      timeline {
+        cases {
+          date
+          value
+        }
+        deaths {
+          date
+          value
+        }
+        recovered {
+          date
+          value
+        }
+      }
+    }
+  }
+`;
+
+const Index = ({ data }) => {
   // set debugger to debug at server
   // debugger
-  let message = '';
-  if (loading) message = 'Loading...';
-  if (error) message = error.message;
-  if (data && data.users.length <= 0) message = 'No data';
+  const hasData = !!data && data.countries.length > 0;
+
+  // choose countries
+  // view today
+  // view historical
+
   return (
     <div className='container'>
       <h1 className='heading'>{message}</h1>
-      {data && data.users.length > 0 && (
-        <div className='chart'>
-          {data}
-        </div>
-      )}
+      {hasData && <div className='chartContainer'>haha</div>}
     </div>
   );
 };
@@ -34,7 +69,7 @@ Index.getInitialProps = async (ctx) => {
   // debugger
   try {
     const { data, loading } = await ctx.apolloClient.query({
-      query: GET_COUNTRIES,
+      query: GET_COUNTRY_NAMES,
     });
     return { data, loading };
   } catch (error) {
