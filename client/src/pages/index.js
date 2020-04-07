@@ -1,5 +1,8 @@
-import React from 'react';
+import React, { useState } from 'react';
 import gql from 'graphql-tag';
+
+import { Button, Select, Space } from 'antd';
+const { Option } = Select;
 
 const GET_COUNTRY_NAMES = gql`
   query {
@@ -47,19 +50,60 @@ const GET_HISTORICAL = gql`
   }
 `;
 
+const VisualizationOptions = {
+  summary: 0,
+  historical: 1,
+};
+
 const Index = ({ data }) => {
   // set debugger to debug at server
   // debugger
-  const hasData = !!data && data.countries.length > 0;
+  const [selectingCountries, setSelectingCountries] = useState([]);
+  const [visualizationOption, setVisualizationOption] = useState(
+    VisualizationOptions['summary']
+  );
 
-  // choose countries
-  // view today
-  // view historical
+  const options = [];
+  for (let i = 0; i < data.countries.length; i++) {
+    const country = data.countries[i].country;
+    options.push(<Option key={country}>{country}</Option>);
+  }
 
   return (
-    <div className='container'>
-      <h1 className='heading'>{message}</h1>
-      {hasData && <div className='chartContainer'>haha</div>}
+    <div className='container' style={{ width: '75vw', margin: '20px auto' }}>
+      <div>Covid Statistic</div>
+      <div style={{ marginTop: 8 }}>
+        <Select
+          mode='multiple'
+          style={{ width: '100%' }}
+          placeholder='Please select countries...'
+          onChange={setSelectingCountries}>
+          {options}
+        </Select>
+      </div>
+      <Space style={{ marginTop: 8 }}>
+        <Button
+          size='large'
+          type='primary'
+          disabled={visualizationOption === VisualizationOptions['summary']}
+          onClick={() =>
+            setVisualizationOption(VisualizationOptions['summary'])
+          }>
+          Summary View
+        </Button>
+        <Button
+          size='large'
+          type='primary'
+          disabled={visualizationOption === VisualizationOptions['historical']}
+          onClick={() =>
+            setVisualizationOption(VisualizationOptions['historical'])
+          }>
+          Historical View
+        </Button>
+      </Space>
+      <div style={{ marginTop: 8 }} className='chartContainer'>
+        Chart goes here - {visualizationOption} - {selectingCountries}
+      </div>
     </div>
   );
 };
