@@ -1,8 +1,11 @@
 const { gql } = require('apollo-server');
 
 const typeDefs = gql`
+  scalar Date
+
   type Query {
-    countries: [Country]!
+    countries(selectingCountries: [String]): [Country]!
+    historical(selectingCountries: [String]): [Historical]!
   }
 
   type Country {
@@ -15,6 +18,22 @@ const typeDefs = gql`
     active: Int
     critical: Int
     tests: Int
+  }
+
+  type Historical {
+    country: String
+    timeline: Timeline!
+  }
+
+  type Timeline {
+    cases: [DataPoint!]!
+    deaths: [DataPoint!]!
+    recovered: [DataPoint!]!
+  }
+
+  type DataPoint {
+    date: Date!
+    value: Int!
   }
 `;
 
