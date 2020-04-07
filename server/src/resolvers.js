@@ -7,9 +7,10 @@ module.exports = {
         selectingCountries = Array.isArray(selectingCountries)
           ? selectingCountries
           : String.split(selectingCountries, ',');
-        allCountries = allCountries.filter(
-          (c) => selectingCountries.findIndex((i) => i === c.country) !== -1
-        );
+        selectingCountries.length !== 0 &&
+          (allCountries = allCountries.filter(
+            (c) => selectingCountries.findIndex((i) => i === c.country) !== -1
+          ));
       }
 
       return allCountries;
@@ -21,9 +22,10 @@ module.exports = {
         selectingCountries = Array.isArray(selectingCountries)
           ? selectingCountries
           : String.split(selectingCountries, ',');
-        allHistorical = allHistorical.filter(
-          (c) => selectingCountries.findIndex((i) => i === c.country) !== -1
-        );
+        selectingCountries.length !== 0 &&
+          (allHistorical = allHistorical.filter(
+            (c) => selectingCountries.findIndex((i) => i === c.country) !== -1
+          ));
       }
 
       return allHistorical;

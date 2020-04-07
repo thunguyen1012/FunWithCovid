@@ -1,60 +1,12 @@
 import React, { useState } from 'react';
-import gql from 'graphql-tag';
 
 import { Button, Select, Space } from 'antd';
+import { VisualizationOptions } from '../chartConfig';
+import { GET_COUNTRY_NAMES } from "../services/CovidServices";
+
+import Visualization from '../components/Visualization';
+
 const { Option } = Select;
-
-const GET_COUNTRY_NAMES = gql`
-  query {
-    countries {
-      country
-    }
-  }
-`;
-
-const GET_COUNTRIES = gql`
-  query {
-    countries {
-      country
-      cases
-      todayCases
-      deaths
-      todayDeaths
-      recovered
-      active
-      critical
-      tests
-    }
-  }
-`;
-
-const GET_HISTORICAL = gql`
-  query {
-    historical {
-      country
-      timeline {
-        cases {
-          date
-          value
-        }
-        deaths {
-          date
-          value
-        }
-        recovered {
-          date
-          value
-        }
-      }
-    }
-  }
-`;
-
-const VisualizationOptions = {
-  summary: 0,
-  historical: 1,
-};
-
 const Index = ({ data }) => {
   // set debugger to debug at server
   // debugger
@@ -101,9 +53,10 @@ const Index = ({ data }) => {
           Historical View
         </Button>
       </Space>
-      <div style={{ marginTop: 8 }} className='chartContainer'>
-        Chart goes here - {visualizationOption} - {selectingCountries}
-      </div>
+      <Visualization
+        visualizationOption={visualizationOption}
+        selectingCountries={selectingCountries}
+      />
     </div>
   );
 };

@@ -24,6 +24,7 @@
     "next": "9.3.4",
     "next-with-apollo": "^5.0.0",
     "react": "16.13.1",
-    "react-dom": "16.13.1"
+    "react-dom": "16.13.1",
+    "recharts": "^1.8.5"
   }
 }
