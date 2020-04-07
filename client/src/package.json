@@ -5,6 +5,7 @@
   "main": "index.js",
   "scripts": {
     "dev": "next",
+    "debug": "NODE_OPTIONS='--inspect=localhost:9229' next",
     "build": "next build",
     "start": "next start"
   },
@@ -12,7 +13,15 @@
   "author": "NQT",
   "license": "ISC",
   "dependencies": {
+    "@apollo/react-hooks": "^3.1.4",
+    "apollo-cache-inmemory": "^1.6.5",
+    "apollo-client": "^2.6.8",
+    "apollo-link-http": "^1.5.16",
+    "graphql": "^15.0.0",
+    "graphql-tag": "^2.10.3",
+    "isomorphic-unfetch": "^3.0.0",
     "next": "9.3.4",
+    "next-with-apollo": "^5.0.0",
     "react": "16.13.1",
     "react-dom": "16.13.1"
   }
