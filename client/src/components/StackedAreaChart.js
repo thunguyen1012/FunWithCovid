@@ -10,6 +10,8 @@ import {
   Legend,
 } from 'recharts';
 
+import AreaTooltip from "./CustomTooltip";
+
 const StackedAreaChart = ({ width, height, margin, data, config }) => {
   const Areas = config.areas.map((i) => (
     <Area
@@ -27,7 +29,7 @@ const StackedAreaChart = ({ width, height, margin, data, config }) => {
       <CartesianGrid strokeDasharray='3 3' />
       <XAxis dataKey={config.xAxis.dataKey} />
       <YAxis />
-      <Tooltip />
+      <Tooltip content={<AreaTooltip />} />
       <Legend />
       {Areas}
     </AreaChart>

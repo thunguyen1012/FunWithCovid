@@ -77,11 +77,13 @@ export const VisualizationOptions = {
       },
     },
     parseData: (data) => {
+      const seriesName = data.historical[0].country;
       const { cases, deaths, recovered } = data.historical[0].timeline;
       const length = cases.length;
       const parsedData = [];
       for (let i = 0; i < length; i++) {
         parsedData.push({
+          seriesName,
           date: format(new Date(cases[i].date), 'yyyy-MM-dd'),
           cases: cases[i].value,
           deaths: deaths[i].value,
