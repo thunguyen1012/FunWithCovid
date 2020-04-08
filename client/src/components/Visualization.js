@@ -1,6 +1,6 @@
 import React from 'react';
-import { Space } from 'antd';
 import { useQuery } from '@apollo/react-hooks';
+import { ResponsiveContainer } from 'recharts';
 
 const Visualization = ({ visualizationOption, selectingCountries }) => {
   const { Component, query, config, parseData } = visualizationOption;
@@ -11,7 +11,7 @@ const Visualization = ({ visualizationOption, selectingCountries }) => {
   if (loading) return null;
 
   return (
-    <Space>
+    <ResponsiveContainer width='100%' height={700}>
       <Component
         width={1400}
         height={700}
@@ -19,7 +19,7 @@ const Visualization = ({ visualizationOption, selectingCountries }) => {
         data={parseData(data)}
         config={config}
       />
-    </Space>
+    </ResponsiveContainer>
   );
 };
 
