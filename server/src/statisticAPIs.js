@@ -7,7 +7,7 @@ class StatisticAPI extends RESTDataSource {
   }
 
   async getAllCountries() {
-    const response = await this.get('countries');
+    const response = await this.get('/v2/countries');
     return Array.isArray(response) ? response : [];
   }
 
