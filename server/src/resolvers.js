@@ -30,6 +30,21 @@ module.exports = {
 
       return allHistorical;
     },
+    vaccineHistorical: async (source, args, { dataSources }) => {
+      let allVaccineHistorical = await dataSources.statisticAPIs.getVaccineHistorical();
+      let { selectingCountries } = args;
+      if (selectingCountries !== null && selectingCountries !== undefined) {
+        selectingCountries = Array.isArray(selectingCountries)
+          ? selectingCountries
+          : String.split(selectingCountries, ',');
+        selectingCountries.length !== 0 &&
+          (allVaccineHistorical = allVaccineHistorical.filter(
+            (c) => selectingCountries.findIndex((i) => i === c.country) !== -1
+          ));
+      }
+
+      return allVaccineHistorical;
+    },
   },
   Timeline: {
     cases: (parent) => parent.cases,

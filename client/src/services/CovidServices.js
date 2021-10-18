@@ -1,4 +1,4 @@
-import gql from 'graphql-tag';
+import gql from "graphql-tag";
 
 export const GET_COUNTRY_NAMES = gql`
   query {
@@ -41,6 +41,18 @@ export const GET_HISTORICAL = gql`
           date
           value
         }
+      }
+    }
+  }
+`;
+
+export const GET_VACCINE_HISTORICAL = gql`
+  query VaccineHistorical($selectingCountries: [String]) {
+    vaccineHistorical(selectingCountries: $selectingCountries) {
+      country
+      timeline {
+        date
+        value
       }
     }
   }

@@ -37,7 +37,6 @@ const Index = ({ data }) => {
         <Button
           size='large'
           type='primary'
-          disabled={visualizationOption === VisualizationOptions['summary']}
           onClick={() =>
             setVisualizationOption(VisualizationOptions['summary'])
           }>
@@ -46,11 +45,18 @@ const Index = ({ data }) => {
         <Button
           size='large'
           type='primary'
-          disabled={visualizationOption === VisualizationOptions['historical']}
           onClick={() =>
             setVisualizationOption(VisualizationOptions['historical'])
           }>
           Historical View
+        </Button>
+        <Button
+          size='large'
+          type='primary'
+          onClick={() =>
+            setVisualizationOption(VisualizationOptions['vaccineHistorical'])
+          }>
+          Vaccine Historical View
         </Button>
       </Space>
       <Visualization

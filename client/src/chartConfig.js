@@ -2,8 +2,9 @@ import { format } from 'date-fns';
 
 import StackedAreaChart from './components/StackedAreaChart';
 import StackedBarChart from './components/StackedBarChart';
+import SimpleLineChart from './components/SimpleLineChart';
 
-import { GET_COUNTRIES, GET_HISTORICAL } from './services/CovidServices';
+import { GET_COUNTRIES, GET_HISTORICAL, GET_VACCINE_HISTORICAL } from './services/CovidServices';
 
 const COLORS = ['#F37022', '#0072BB', '#565554', '#2E86AB', '#AED5BB'];
 
@@ -88,6 +89,36 @@ export const VisualizationOptions = {
           cases: cases[i].value,
           deaths: deaths[i].value,
           recovered: recovered[i].value,
+        });
+      }
+      return parsedData;
+    },
+  },
+  vaccineHistorical: {
+    Component: SimpleLineChart,
+    query: GET_VACCINE_HISTORICAL,
+    config: {
+      lines: [
+        {
+          type: 'monotone',
+          dataKey: 'doses',
+          stroke: COLORS[1]
+        }
+      ],
+      xAxis: {
+        dataKey: 'date',
+      },
+    },
+    parseData: (data) => {
+      const seriesName = data.vaccineHistorical[0].country;
+      const timeline = data.vaccineHistorical[0].timeline;
+      const length = timeline.length;
+      const parsedData = [];
+      for (let i = 0; i < length; i++) {
+        parsedData.push({
+          seriesName,
+          date: format(new Date(timeline[i].date), 'yyyy-MM-dd'),
+          doses: timeline[i].value
         });
       }
       return parsedData;

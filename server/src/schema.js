@@ -6,6 +6,7 @@ const typeDefs = gql`
   type Query {
     countries(selectingCountries: [String]): [Country]!
     historical(selectingCountries: [String]): [Historical]!
+    vaccineHistorical(selectingCountries: [String]): [VaccineHistorical]!
   }
 
   type Country {
@@ -33,7 +34,12 @@ const typeDefs = gql`
 
   type DataPoint {
     date: Date!
-    value: Int!
+    value: Float!
+  }
+
+  type VaccineHistorical {
+    country: String
+    timeline: [DataPoint!]!
   }
 `;
 
